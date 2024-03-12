@@ -101,6 +101,15 @@ public class UserRepositoryImpl implements UserRepository {
         return updcnt;
     }
 
+    @Override
+    public List<User> findRepsNearUser(Double latitude, Double longitude) {
+        MapSqlParameterSource map = new MapSqlParameterSource();
+        map.addValue(LATITUDE, latitude);
+        map.addValue(LONGITUDE, longitude);
+        List<User> result = jdbcTemplate.query(FIND_REPS_NEAR_USER, map, new UserRowMapper());
+        return !CollectionUtils.isEmpty(result) ? result : null;
+    }
+
     private MapSqlParameterSource getSqlParameterSource(User user) {
         Map<String, Object> map = new HashMap<>();
         map.put(USER_ID, user.getUserId());
@@ -110,7 +119,8 @@ public class UserRepositoryImpl implements UserRepository {
         map.put(ROLE, user.getRole());
         map.put(CREATED_DATE_TIME, LocalDateTime.now());
         map.put(UPDATED_DATE_TIME, LocalDateTime.now());
-        map.put(CURRENT_LOCATION, user.getCurrentLocation());
+        map.put(LATITUDE, user.getLatitude());
+        map.put(LONGITUDE, user.getLongitude());
         return new MapSqlParameterSource(map);
     }
 }

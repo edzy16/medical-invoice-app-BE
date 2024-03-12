@@ -1,4 +1,4 @@
-package com.sidh.medinvoice.model.user;
+package com.sidh.medinvoice.model.invoice;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,14 +12,12 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class User implements Serializable {
+public class Invoice implements Serializable {
+    private String invoiceId;
     private String userId;
-    private String email;
-    private String password;
-    private String fullName;
-    private String role;
+    private String prescriptionId;
+    private String invoiceNo;
+    private String invoiceJson;
     private LocalDateTime createdDateTime;
     private LocalDateTime updatedDateTime;
-    private Double latitude;
-    private Double longitude;
 }
